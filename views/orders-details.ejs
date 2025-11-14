@@ -1,0 +1,27 @@
+<h1>Zamówienie #<%= order.id %></h1>
+<p>Utworzono: <%= order.created.at %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Produkt</th>
+      <th>Ilość</th>
+      <th>Cena</th>
+      <th>Suma</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% items.forEach(item => { %>
+    <tr>
+      <td><%= item.name %></td>
+      <td><%= item.qty %></td>
+      <td><%= item.price.toFixed(2) %></td>
+      <td><%= (item.qty * item.price).toFixed(2) %></td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<p>Total: $<%= total.toFixed(2) %></p>
+
+<a href="/orders">Powrót</a>

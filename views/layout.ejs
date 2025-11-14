@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/">Produkty</a> |
+        <a href="/cart"
+          >Koszyk (<%= Object.keys(cart || {}).filter(k => k!=='coupon').length
+          %></a
+        >
+        |
+        <a href="/orders">Zamówienia</a>
+      </nav>
+    </header>
+    <main><%- body %></main>
+  </body>
+</html>

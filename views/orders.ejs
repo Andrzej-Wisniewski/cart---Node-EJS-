@@ -1,0 +1,24 @@
+<h1>Zamówienia</h1>
+
+<% if (!orders.length) { %>
+<p>Brak zamówień.</p>
+<% } else { %>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Utworzono</th>
+      <th>Razem</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% orders.forEach(o => { %>
+    <tr>
+      <td><%= o.id %></td>
+      <td><%= o.created_at %></td>
+      <td><%= o.subtotal.toFixed(2) %> PLN</td>
+      <td><a href="/orders/<%= o.id %>">Szczegóły</a></td>
+    </tr>
+  </tbody>
+</table>
+<% } %>

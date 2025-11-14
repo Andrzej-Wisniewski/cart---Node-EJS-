@@ -1,0 +1,31 @@
+<h1>Produkty</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nazwa</th>
+      <th>Cena</th>
+      <th>Dodaj do koszyka</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% products.forEach(p => { %>
+    <tr>
+      <td><%= p.name %></td>
+      <td><%= p.price.toFixed(2) %> PLN</td>
+      <td>
+        <form action="/api/cart/add" method="post">
+          <input type="hidden" name="product_id" value="<%= p.id %>" />
+          <input
+            type="number"
+            name="qty"
+            value="1"
+            min="1"
+            style="width: 50px"
+          />
+          <button type="submit">Dodaj</button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

@@ -1,0 +1,70 @@
+<h1>Koszyk</h1>
+<% if (!cartItems.length) { %>
+<p>Twój koszyk jest pusty.</p>
+<% } else { %>
+<table>
+  <thead>
+    <tr>
+      <th>Nazwa</th>
+      <th>Cena</th>
+      <th>Ilość</th>
+      <th>Razem</th>
+      <th>Akcja</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% cartItems.forEach(item => { %>
+    <tr>
+      <td><%= item.name %></td>
+      <td><%= item.price.toFixed(2) %> PLN</td>
+      <td>
+        <form action="/api/cart/item" method="post" style="display: inline">
+          <input type="hidden" name="_method" value="PATCH" />
+          <input type="hidden" name="product_id" value="<%= item.id %>" />
+          <input
+            type="number"
+            name="qty"
+            value="<%= item.qty %>"
+            min="1"
+            style="width: 50px"
+          />
+          <button type="submit">Edytuj</button>
+        </form>
+      </td>
+      <td><%= (it.total).toFixed(2) %> zł</td>
+      <td>$<%= (item.price * item.qty).toFixed(2) %></td>
+      <td>
+        <form
+          action="/api/cart/item/<%= item.id %>"
+          method="post"
+          style="display: inline"
+        >
+          <input type="hidden" name="_method" value="DELETE" />
+          <button type="submit">Usuń</button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<tr>
+  <td colspan="3"><strong>Subtotal</strong></td>
+  <td colspan="2"><strong><%= grand.toFixed(2) %> zł</strong></td>
+</tr>
+
+<% if (coupon) { %>
+<p>Kupon dodany: <%= coupon %>%</p>
+<% } %>
+
+<p>Razem: $<%= total.toFixed(2) %></p>
+
+<form action="/api/checkout" method="post">
+  <button type="submit">Zamów</button>
+</form>
+
+<form action="/api/cart/apply-coupon" method="post" style="margin-top: 0.5rem">
+  <input type="text" name="code" placeholder="kod rabatowy" />
+  <button type="submit">Dodaj kupon</button>
+</form>
+<% } %>
